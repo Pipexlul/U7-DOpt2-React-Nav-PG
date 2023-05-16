@@ -1,21 +1,36 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Navigate,
+} from "react-router-dom";
 
-import Navbar from "./components/Navbar";
-
+import Root from "./views/Root";
 import Home from "./views/Home";
+import Default from "./views/Default";
 
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Root />,
+    errorElement: null,
+    children: [
+      {
+        index: true,
+        element: <Navigate to="/home" />,
+      },
+      {
+        path: "/home",
+        element: <Home />,
+      },
+      {
+        path: "/:custom",
+        element: <Default />,
+      },
+    ],
+  },
+]);
 const App: React.FC = () => {
-  return (
-    <div>
-      <BrowserRouter>
-        <Navbar />
-        <br />
-        <Routes>
-          <Route path="/" element={<Home />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
-  );
+  return <RouterProvider router={router} />;
 };
 
 export default App;
