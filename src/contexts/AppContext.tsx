@@ -1,6 +1,8 @@
 import { createContext, useState } from "react";
 
-const AppContext = createContext<any>(null);
+import type { ContextProps } from "../types/Context";
+
+const AppContext = createContext<ContextProps | null>(null);
 
 const AppContextProvider: React.FC<React.PropsWithChildren> = ({
   children,
@@ -15,7 +17,14 @@ const AppContextProvider: React.FC<React.PropsWithChildren> = ({
     }
   };
 
-  return <AppContext.Provider value={null}>{children}</AppContext.Provider>;
+  const contextProps: ContextProps = {
+    tabs,
+    addTab,
+  };
+
+  return (
+    <AppContext.Provider value={contextProps}>{children}</AppContext.Provider>
+  );
 };
 
 export default AppContextProvider;
