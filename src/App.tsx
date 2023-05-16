@@ -6,7 +6,7 @@ import Home from "./views/Home";
 
 const App: React.FC = () => {
   return (
-    <div className="App">
+    <div>
       <BrowserRouter>
         <Navbar />
         <br />
