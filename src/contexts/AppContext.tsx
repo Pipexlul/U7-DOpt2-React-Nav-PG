@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useRef } from "react";
 
 import type { ContextProps } from "../types/Context";
 import type { NavStyles } from "../types/NavStyles";
@@ -10,6 +10,8 @@ const AppContext = createContext<ContextProps | null>(null);
 const AppContextProvider: React.FC<React.PropsWithChildren> = ({
   children,
 }) => {
+  const navElemRef = useRef<HTMLDivElement>(null);
+
   const defaultStyles = {
     backgroundColor: "black",
     color: "white",
@@ -38,6 +40,7 @@ const AppContextProvider: React.FC<React.PropsWithChildren> = ({
     addTab,
     navStyles,
     modifyStyle,
+    navElemRef,
   };
 
   return (

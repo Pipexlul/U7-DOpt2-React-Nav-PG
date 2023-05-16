@@ -5,4 +5,5 @@ export interface ContextProps {
   addTab: (tab: string) => void;
   navStyles: NavStyles;
   modifyStyle: <K extends keyof NavStyles>(key: K, value: NavStyles[K]) => void;
+  navElemRef: React.RefObject<HTMLDivElement>;
 }

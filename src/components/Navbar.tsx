@@ -4,9 +4,11 @@ import { AppContext } from "../contexts/AppContext";
 import type { ContextProps } from "../types/Context";
 
 const Navbar: React.FC = () => {
-  const { tabs, navStyles } = useContext(AppContext) as ContextProps;
+  const { tabs, navStyles, navElemRef } = useContext(
+    AppContext
+  ) as ContextProps;
 
-  return <nav></nav>;
+  return <nav ref={navElemRef}></nav>;
 };
 
 export default Navbar;
