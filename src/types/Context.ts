@@ -1,9 +1,13 @@
-import { NavStyles } from "./NavStyles";
+import type { BaseNavStyles, ExtraNavStyles } from "./NavStyles";
 
 export interface ContextProps {
   tabs: string[];
   addTab: (tab: string) => void;
-  navStyles: NavStyles;
-  modifyStyle: <K extends keyof NavStyles>(key: K, value: NavStyles[K]) => void;
+  navStyles: {
+    base: BaseNavStyles;
+    extras: ExtraNavStyles;
+  };
+  modifyBaseStyle: (key: keyof BaseNavStyles, value: string) => void;
+  modifyExtraStyle: (key: keyof ExtraNavStyles, value: string) => void;
   navElemRef: React.RefObject<HTMLDivElement>;
 }

@@ -1,9 +1,10 @@
 import { createContext, useState, useRef } from "react";
 
 import type { ContextProps } from "../types/Context";
-import type { NavStyles } from "../types/NavStyles";
+import type { BaseNavStyles, ExtraNavStyles } from "../types/NavStyles";
 
-type modifyStyleFunc = ContextProps["modifyStyle"];
+type modifyBaseStyleFunc = ContextProps["modifyBaseStyle"];
+type modifyExtraStyleFunc = ContextProps["modifyExtraStyle"];
 
 const AppContext = createContext<ContextProps | null>(null);
 
@@ -12,16 +13,27 @@ const AppContextProvider: React.FC<React.PropsWithChildren> = ({
 }) => {
   const navElemRef = useRef<HTMLDivElement>(null);
 
-  const defaultStyles = {
+  const defaultBaseStyles: BaseNavStyles = {
     backgroundColor: "black",
     color: "white",
-    selectedColor: "red",
     fontWeight: "bold",
     fontSize: "2rem",
   };
 
+  const defaultExtraStyles: ExtraNavStyles = {
+    ["selectedColor"]: { property: "color", value: "black" },
+  };
+
   const [tabs, setTabs] = useState<string[]>([]);
-  const [navStyles, setNavStyles] = useState<NavStyles>(defaultStyles);
+  const [baseStyles, setBaseStyles] =
+    useState<BaseNavStyles>(defaultBaseStyles);
+  const [extraStyles, setExtraStyles] =
+    useState<ExtraNavStyles>(defaultExtraStyles);
+
+  const navStyles = {
+    base: baseStyles,
+    extras: extraStyles,
+  };
 
   const addTab = (tab: string) => {
     if (!tabs.includes(tab)) {
@@ -31,15 +43,23 @@ const AppContextProvider: React.FC<React.PropsWithChildren> = ({
     }
   };
 
-  const modifyStyle: modifyStyleFunc = (key, value) => {
-    setNavStyles({ ...navStyles, [key]: value });
+  const modifyBaseStyle: modifyBaseStyleFunc = (key, value) => {
+    setBaseStyles({ ...baseStyles, [key]: value });
+  };
+
+  const modifyExtraStyle: modifyExtraStyleFunc = (key, value) => {
+    const newState = { ...extraStyles };
+    newState[key].value = value;
+
+    setExtraStyles(newState);
   };
 
   const contextProps: ContextProps = {
     tabs,
     addTab,
     navStyles,
-    modifyStyle,
+    modifyBaseStyle,
+    modifyExtraStyle,
     navElemRef,
   };
 
