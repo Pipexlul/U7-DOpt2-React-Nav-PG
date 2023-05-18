@@ -9,5 +9,4 @@ export interface ContextProps {
   };
   modifyBaseStyle: (key: keyof BaseNavStyles, value: string) => void;
   modifyExtraStyle: (key: keyof ExtraNavStyles, value: string) => void;
-  navElemRef: React.RefObject<HTMLDivElement>;
 }

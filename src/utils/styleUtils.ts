@@ -1,12 +1,13 @@
 import type { ContextProps } from "../types/Context";
+import type { ResultHolder } from "../types/NavStyles";
 
 type StylesType = ContextProps["navStyles"];
 type BaseStylesType = ContextProps["navStyles"]["base"];
 type ExtrasStylesType = ContextProps["navStyles"]["extras"];
 
 type MiniCSSFunc = (
-  baseKeys: (keyof BaseStylesType)[],
-  extraKeys: (keyof ExtrasStylesType)[]
+  baseKeys?: (keyof BaseStylesType)[],
+  extraKeys?: (keyof ExtrasStylesType)[]
 ) => React.CSSProperties;
 
 const getStyleFromContext = (styles: StylesType): MiniCSSFunc => {
@@ -14,19 +15,23 @@ const getStyleFromContext = (styles: StylesType): MiniCSSFunc => {
   const extraStyles = styles.extras;
 
   const retFunc: MiniCSSFunc = (baseKeys, extraKeys) => {
-    const result: React.CSSProperties = {};
+    const result: ResultHolder = {};
 
-    baseKeys.forEach((key) => {
-      result[key] = baseStyles[key];
-    });
+    if (baseKeys) {
+      baseKeys.forEach((key) => {
+        result[key] = baseStyles[key];
+      });
+    }
 
-    extraKeys.forEach((key) => {
-      const { value, property } = extraStyles[key];
+    if (extraKeys) {
+      extraKeys.forEach((key) => {
+        const { value, property } = extraStyles[key];
 
-      result[property] = value;
-    });
+        result[property] = value;
+      });
+    }
 
-    return result;
+    return result as React.CSSProperties;
   };
 
   return retFunc;

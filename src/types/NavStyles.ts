@@ -1,12 +1,12 @@
 const validBaseProps = [
   "backgroundColor",
   "color",
-  "fontSize",
   "fontWeight",
+  "fontSize",
 ] as const;
 
 const validExtraProps = [
-  { customName: "selectedColor", realProp: "color" },
+  { customName: "selectedColor", realProp: "backgroundColor" },
 ] as const;
 
 type ValidExtraProps = (typeof validExtraProps)[number]["customName"];
@@ -24,6 +24,12 @@ type ExtraNavStyles = {
 };
 
 type ValidBaseProps = (typeof validBaseProps)[number];
-type BaseNavStyles = Pick<React.CSSProperties, ValidBaseProps>;
+type BaseNavStyles = {
+  [K in ValidBaseProps]: string;
+};
 
-export type { BaseNavStyles, ExtraNavStyles };
+type ResultHolder = {
+  [K in keyof React.CSSProperties]: string;
+};
+
+export type { BaseNavStyles, ExtraNavStyles, ResultHolder };

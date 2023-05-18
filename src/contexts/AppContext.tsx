@@ -1,4 +1,4 @@
-import { createContext, useState, useRef } from "react";
+import { createContext, useState } from "react";
 
 import type { ContextProps } from "../types/Context";
 import type { BaseNavStyles, ExtraNavStyles } from "../types/NavStyles";
@@ -11,8 +11,6 @@ const AppContext = createContext<ContextProps | null>(null);
 const AppContextProvider: React.FC<React.PropsWithChildren> = ({
   children,
 }) => {
-  const navElemRef = useRef<HTMLDivElement>(null);
-
   const defaultBaseStyles: BaseNavStyles = {
     backgroundColor: "black",
     color: "white",
@@ -21,10 +19,15 @@ const AppContextProvider: React.FC<React.PropsWithChildren> = ({
   };
 
   const defaultExtraStyles: ExtraNavStyles = {
-    ["selectedColor"]: { property: "color", value: "black" },
+    ["selectedColor"]: { property: "backgroundColor", value: "yellow" },
   };
 
-  const [tabs, setTabs] = useState<string[]>([]);
+  const [tabs, setTabs] = useState<string[]>([
+    "Home",
+    "Test",
+    "Amazing",
+    "Docs",
+  ]);
   const [baseStyles, setBaseStyles] =
     useState<BaseNavStyles>(defaultBaseStyles);
   const [extraStyles, setExtraStyles] =
@@ -60,7 +63,6 @@ const AppContextProvider: React.FC<React.PropsWithChildren> = ({
     navStyles,
     modifyBaseStyle,
     modifyExtraStyle,
-    navElemRef,
   };
 
   return (
