@@ -23,10 +23,10 @@ const AppContextProvider: React.FC<React.PropsWithChildren> = ({
   };
 
   const [tabs, setTabs] = useState<string[]>([
-    "Home",
     "Test",
     "Amazing",
     "Docs",
+    "About us",
   ]);
   const [baseStyles, setBaseStyles] =
     useState<BaseNavStyles>(defaultBaseStyles);
