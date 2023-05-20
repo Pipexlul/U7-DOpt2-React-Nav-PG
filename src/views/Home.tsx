@@ -1,24 +1,39 @@
-const Home: React.FC = () => {
+import { useContext } from "react";
+
+import HomeContextProvider, { HomeContext } from "../contexts/HomeContext";
+import type { HomeContextProps } from "../types/HomeContext";
+
+import Form from "../components/Form";
+
+// Helper component that gets wrapped by the main component to be able to use useContext
+const HomeContent: React.FC = () => {
+  const { tabForm, styleForm } = useContext(HomeContext) as HomeContextProps;
+
   return (
-    <div>
-      <h2>Welcome</h2>
-      <h1>💻 React Navbar Playground 💻</h1>
+    <div className="flex flex-col">
+      <h2 className="text-center text-3xl">Bienvenido</h2>
+      <h1 className="text-center text-5xl">💻 React Navbar Playground 💻</h1>
 
-      <div>
-        <div>
-          <label>Agregar opción</label>
-          <input placeholder="Titulo" />
-          <input placeholder="Ruta" />
-          <button>agregar</button>
-        </div>
-
-        <div>
-          <label>Estilos</label>
-          <input placeholder="Color de Fondo" />
-          <input placeholder="Color de texto" />
-        </div>
+      <div className="flex">
+        <Form
+          formName="TabsForm"
+          submitAction={(e) => {
+            e.preventDefault();
+            console.log("Submit clicked!");
+          }}
+        >
+          {tabForm}
+        </Form>
       </div>
     </div>
+  );
+};
+
+const Home: React.FC = () => {
+  return (
+    <HomeContextProvider>
+      <HomeContent />
+    </HomeContextProvider>
   );
 };
 

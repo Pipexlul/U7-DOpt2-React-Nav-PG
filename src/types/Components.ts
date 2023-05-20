@@ -3,4 +3,25 @@ interface NavLink {
   isActive: boolean;
 }
 
-export type { NavLink as NavLinkProps };
+interface FormInputValues {
+  name: string;
+  value: string;
+}
+
+interface FormChild {
+  labelName: string;
+  type: "text" | "submit" | "color";
+}
+
+interface Form {
+  formName: string;
+  submitAction: (event: React.FormEvent<HTMLFormElement>) => void;
+  children: FormChild[];
+}
+
+export type {
+  NavLink as NavLinkProps,
+  Form as FormProps,
+  FormInputValues,
+  FormChild,
+};
