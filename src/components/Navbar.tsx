@@ -29,8 +29,8 @@ const Navbar: React.FC = () => {
         <NavLink to="/Home">{childFunc("Home")}</NavLink>
       </div>
       <div className="flex justify-start items-center px-4 divide-x divide-gray-400 divide-opacity-70">
-        {tabs.map((tab) => (
-          <NavLink className="px-3" key={tab} to={`/${tab}`}>
+        {tabs.map(([tab, path]) => (
+          <NavLink className="px-3" key={tab} to={`/${path}`}>
             {childFunc(tab)}
           </NavLink>
         ))}

@@ -15,7 +15,6 @@ interface FormChild {
 
 interface Form {
   formName: string;
-  submitAction: (event: React.FormEvent<HTMLFormElement>) => void;
   children: FormChild[];
 }
 

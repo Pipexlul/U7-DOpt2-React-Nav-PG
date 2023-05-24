@@ -1,8 +1,10 @@
 import type { BaseNavStyles, ExtraNavStyles } from "./NavStyles";
 
+type TabTuple = [string, string];
+
 export interface ContextProps {
-  tabs: string[];
-  addTab: (tab: string) => void;
+  tabs: TabTuple[];
+  addTab: (tab: string, path: string) => void;
   navStyles: {
     base: BaseNavStyles;
     extras: ExtraNavStyles;

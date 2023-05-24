@@ -1,10 +1,14 @@
 import { createContext, useState } from "react";
 
+import { getFirstValidPathCharIndex } from "../utils/stringUtils";
+
 import type { ContextProps } from "../types/Context";
 import type { BaseNavStyles, ExtraNavStyles } from "../types/NavStyles";
 
 type modifyBaseStyleFunc = ContextProps["modifyBaseStyle"];
 type modifyExtraStyleFunc = ContextProps["modifyExtraStyle"];
+
+type tabsType = ContextProps["tabs"];
 
 const AppContext = createContext<ContextProps | null>(null);
 
@@ -22,12 +26,7 @@ const AppContextProvider: React.FC<React.PropsWithChildren> = ({
     ["selectedColor"]: { property: "backgroundColor", value: "yellow" },
   };
 
-  const [tabs, setTabs] = useState<string[]>([
-    "Test",
-    "Amazing",
-    "Docs",
-    "About us",
-  ]);
+  const [tabs, setTabs] = useState<tabsType>([]);
   const [baseStyles, setBaseStyles] =
     useState<BaseNavStyles>(defaultBaseStyles);
   const [extraStyles, setExtraStyles] =
@@ -38,9 +37,18 @@ const AppContextProvider: React.FC<React.PropsWithChildren> = ({
     extras: extraStyles,
   };
 
-  const addTab = (tab: string) => {
-    if (!tabs.includes(tab)) {
-      setTabs([...tabs, tab]);
+  const addTab = (tab: string, path: string): void => {
+    if (tabs.findIndex((item) => item[0] === tab) === -1) {
+      const validChar = getFirstValidPathCharIndex(path);
+      if (validChar === null) {
+        alert("La ruta es invalida, no se encontraron caracteres validos");
+        return;
+      } else if (validChar !== 0) {
+        path = path.slice(validChar);
+        alert(`La ruta es valida, pero fue modificada a ${path}`);
+      }
+
+      setTabs([...tabs, [tab, path]]);
     } else {
       alert("¡Ya existe un tab con ese nombre!");
     }

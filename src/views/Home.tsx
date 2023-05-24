@@ -15,15 +15,7 @@ const HomeContent: React.FC = () => {
       <h1 className="text-center text-5xl">💻 React Navbar Playground 💻</h1>
 
       <div className="flex">
-        <Form
-          formName="TabsForm"
-          submitAction={(e) => {
-            e.preventDefault();
-            console.log("Submit clicked!");
-          }}
-        >
-          {tabForm}
-        </Form>
+        <Form formName="TabsForm">{tabForm}</Form>
       </div>
     </div>
   );
