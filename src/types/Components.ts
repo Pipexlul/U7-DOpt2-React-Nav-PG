@@ -14,7 +14,7 @@ interface FormChild {
 }
 
 interface Form {
-  formName: string;
+  formName: "TabsForm" | "StylesForm";
   children: FormChild[];
 }
 
