@@ -9,24 +9,24 @@ const TabFormFunc = (
   formName: string,
   children: FormChild[],
   inputValues: FormInputValues[],
-  addTab: (tab: string, path: string) => void
+  addTab: (tab: string, path: string) => boolean,
+  handleInputValue: (name: string, value: string) => void
 ) => {
   const controlGetter = getControlName(formName);
 
   const [inputTab, inputPath] = children;
 
-  const tabValue = inputValues.find(
-    (item) => item.name === controlGetter(inputTab.labelName)
-  );
+  const tabControlName = controlGetter(inputTab.labelName);
+  const pathControlName = controlGetter(inputPath.labelName);
+
+  const tabValue = inputValues.find((item) => item.name === tabControlName);
 
   if (!tabValue || !tabValue.value) {
     alert(missingValue);
     return;
   }
 
-  const pathValue = inputValues.find(
-    (item) => item.name === controlGetter(inputPath.labelName)
-  );
+  const pathValue = inputValues.find((item) => item.name === pathControlName);
 
   if (!pathValue || !pathValue.value) {
     alert(missingValue);
@@ -36,7 +36,10 @@ const TabFormFunc = (
   console.log(tabValue);
   console.log(pathValue);
 
-  addTab(tabValue.value, pathValue.value);
+  if (addTab(tabValue.value, pathValue.value)) {
+    handleInputValue(tabControlName, "");
+    handleInputValue(pathControlName, "");
+  }
 };
 
 export { TabFormFunc };

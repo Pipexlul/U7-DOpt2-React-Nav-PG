@@ -75,7 +75,13 @@ const Form: React.FC<FormProps> = ({ formName, children }) => {
         // Definitely not a maintainable solution, but this will do for now.
         switch (formName) {
           case "TabsForm": {
-            TabFormFunc(formName, children, inputValues, addTab);
+            TabFormFunc(
+              formName,
+              children,
+              inputValues,
+              addTab,
+              handleInputValue
+            );
 
             break;
           }

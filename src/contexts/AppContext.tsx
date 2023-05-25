@@ -37,20 +37,22 @@ const AppContextProvider: React.FC<React.PropsWithChildren> = ({
     extras: extraStyles,
   };
 
-  const addTab = (tab: string, path: string): void => {
+  const addTab = (tab: string, path: string): boolean => {
     if (tabs.findIndex((item) => item[0] === tab) === -1) {
       const validChar = getFirstValidPathCharIndex(path);
       if (validChar === null) {
         alert("La ruta es invalida, no se encontraron caracteres validos");
-        return;
+        return false;
       } else if (validChar !== 0) {
         path = path.slice(validChar);
         alert(`La ruta es valida, pero fue modificada a ${path}`);
       }
 
       setTabs([...tabs, [tab, path]]);
+      return true;
     } else {
       alert("¡Ya existe un tab con ese nombre!");
+      return false;
     }
   };
 

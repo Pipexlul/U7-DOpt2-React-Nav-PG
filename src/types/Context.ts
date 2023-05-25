@@ -4,7 +4,7 @@ type TabTuple = [string, string];
 
 export interface ContextProps {
   tabs: TabTuple[];
-  addTab: (tab: string, path: string) => void;
+  addTab: (tab: string, path: string) => boolean;
   navStyles: {
     base: BaseNavStyles;
     extras: ExtraNavStyles;
