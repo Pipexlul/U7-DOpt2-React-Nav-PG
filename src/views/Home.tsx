@@ -16,6 +16,7 @@ const HomeContent: React.FC = () => {
 
       <div className="flex">
         <Form formName="TabsForm">{tabForm}</Form>
+        <Form formName="StylesForm">{styleForm}</Form>
       </div>
     </div>
   );

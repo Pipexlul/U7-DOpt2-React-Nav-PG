@@ -23,7 +23,28 @@ const HomeContextProvider: React.FC<React.PropsWithChildren> = ({
     },
   ];
 
-  const styleForm: FormChild[] = [];
+  const styleForm: FormChild[] = [
+    {
+      labelName: "Color de fondo",
+      type: "text",
+    },
+    {
+      labelName: "Color de texto",
+      type: "text",
+    },
+    {
+      labelName: "Grosor de fuente",
+      type: "text",
+    },
+    {
+      labelName: "Tamaño de fuente",
+      type: "text",
+    },
+    {
+      labelName: "Color de indicador de pestaña actual",
+      type: "color",
+    },
+  ];
 
   const [inputValues, setInputValues] = useState<FormInputValues[]>([]);
 
