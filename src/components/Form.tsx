@@ -34,12 +34,36 @@ const Form: React.FC<FormProps> = ({ formName, children }) => {
     switch (child.type) {
       case "text":
         controls.push(
-          <label key={idx} className="flex flex-col items-center">
+          <label key={idx} className="flex flex-col items-center w-4/5">
             <span className="text-center inline-block w-full">
               {child.labelName}
             </span>
             <input
               type="text"
+              className="w-4/5"
+              value={getControlValue(getControlName(child.labelName))}
+              onChange={(e) => {
+                handleInputValue(
+                  getControlName(child.labelName),
+                  e.target.value
+                );
+              }}
+            />
+          </label>
+        );
+        break;
+
+      case "color":
+        controls.push(
+          <label
+            key={idx}
+            className="flex flex-col items-center w-4/5 break-words"
+          >
+            <span className="text-center inline-block w-full">
+              {child.labelName}
+            </span>
+            <input
+              type="color"
               className="w-4/5"
               value={getControlValue(getControlName(child.labelName))}
               onChange={(e) => {
