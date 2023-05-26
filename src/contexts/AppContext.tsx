@@ -4,6 +4,7 @@ import { getFirstValidPathCharIndex } from "../utils/stringUtils";
 
 import type { ContextProps } from "../types/Context";
 import type { BaseNavStyles, ExtraNavStyles } from "../types/NavStyles";
+import { defaultBaseStyles, defaultExtraStyles } from "../utils/styleUtils";
 
 type modifyBaseStyleFunc = ContextProps["modifyBaseStyle"];
 type modifyExtraStyleFunc = ContextProps["modifyExtraStyle"];
@@ -15,17 +16,6 @@ const AppContext = createContext<ContextProps | null>(null);
 const AppContextProvider: React.FC<React.PropsWithChildren> = ({
   children,
 }) => {
-  const defaultBaseStyles: BaseNavStyles = {
-    backgroundColor: "black",
-    color: "white",
-    fontWeight: "bold",
-    fontSize: "2rem",
-  };
-
-  const defaultExtraStyles: ExtraNavStyles = {
-    ["selectedColor"]: { property: "backgroundColor", value: "yellow" },
-  };
-
   const [tabs, setTabs] = useState<tabsType>([]);
   const [baseStyles, setBaseStyles] =
     useState<BaseNavStyles>(defaultBaseStyles);

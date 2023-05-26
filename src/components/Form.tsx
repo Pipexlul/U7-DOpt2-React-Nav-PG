@@ -80,7 +80,7 @@ const Form: React.FC<FormProps> = ({ formName, children }) => {
         controls.push(
           <button
             key={idx}
-            className="rounded text-center w-1/2 bg-gradient-to-r from-indigo-700 to-indigo-400 text-white py-2 text-lg font-semibold "
+            className="rounded text-center w-1/2 bg-gradient-to-r from-indigo-700 to-indigo-400 text-white py-2 text-lg font-semibold"
             type="submit"
           >
             {child.labelName}

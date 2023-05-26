@@ -1,9 +1,24 @@
 import type { ContextProps } from "../types/Context";
-import type { ResultHolder } from "../types/NavStyles";
+import type {
+  BaseNavStyles,
+  ExtraNavStyles,
+  ResultHolder,
+} from "../types/NavStyles";
 
 type StylesType = ContextProps["navStyles"];
 type BaseStylesType = ContextProps["navStyles"]["base"];
 type ExtrasStylesType = ContextProps["navStyles"]["extras"];
+
+const defaultBaseStyles: BaseNavStyles = {
+  backgroundColor: "black",
+  color: "white",
+  fontWeight: "bold",
+  fontSize: "2rem",
+};
+
+const defaultExtraStyles: ExtraNavStyles = {
+  ["selectedColor"]: { property: "backgroundColor", value: "yellow" },
+};
 
 type MiniCSSFunc = (
   baseKeys?: (keyof BaseStylesType)[],
@@ -19,7 +34,11 @@ const getStyleFromContext = (styles: StylesType): MiniCSSFunc => {
 
     if (baseKeys) {
       baseKeys.forEach((key) => {
-        result[key] = baseStyles[key];
+        if (!baseStyles[key] || !CSS.supports(key, baseStyles[key])) {
+          result[key] = defaultBaseStyles[key];
+        } else {
+          result[key] = baseStyles[key];
+        }
       });
     }
 
@@ -27,7 +46,11 @@ const getStyleFromContext = (styles: StylesType): MiniCSSFunc => {
       extraKeys.forEach((key) => {
         const { value, property } = extraStyles[key];
 
-        result[property] = value;
+        if (!extraStyles[key].value || !CSS.supports(property, value)) {
+          result[property] = defaultExtraStyles[key].value;
+        } else {
+          result[property] = value;
+        }
       });
     }
 
@@ -37,4 +60,4 @@ const getStyleFromContext = (styles: StylesType): MiniCSSFunc => {
   return retFunc;
 };
 
-export { getStyleFromContext };
+export { getStyleFromContext, defaultBaseStyles, defaultExtraStyles };
